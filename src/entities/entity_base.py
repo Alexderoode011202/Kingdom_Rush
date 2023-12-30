@@ -5,12 +5,7 @@ from typing import Tuple
 class Entitiy:
     def __init__(self, image_link: str, start_x: int, start_y: int, hp: int, speed: int, damage_range: tuple[int, int], attack_speed: int, armor_level: int, magical_protection: int):
         """Still gotta work out the description for this"""
-        self.x_coord: int = start_x
-        self.y_coord: int = start_y
-
-        self.hp: int = hp
-        self.speed: int = speed
-        self.status_effects: list = []
+        # combat
         self.damage_range: Tuple[int, int] = damage_range
         self.attack_speed: int = attack_speed
         self.dead: bool = False
@@ -19,9 +14,23 @@ class Entitiy:
         self.own_surface: Surface = pygame.image.load(image_link)
         self.own_rect: Rect = self.own_surface.get_rect(midbottom = (self.x_coord, self.y_coord))
 
+        # health and protection
+        self.hp: int = hp
         self.armor_level: int = armor_level
         self.magical_protection: int = magical_protection
         self.fighing: bool = False
+
+        # movement
+        self.x_coord: int = start_x
+        self.y_coord: int = start_y
+        self.start_coord: Tuple[int, int] = (self.x_coord, self.y_coord)
+        self.speed: int = speed
+        self.goal: Tuple[int, int] = None
+        self.last_reached_goal: int = None
+        self.n_goals_reached: int = 0
+
+        # diverse:
+        self.status_effects: list = []
 
 
 
@@ -43,6 +52,9 @@ class Entitiy:
         """returns the coordinates of an entities feet"""
         return (self.x_coord, self.y_coord)
     
+    def set_new_goal(self, goal_coordinates: Tuple[int, int]) -> None:
+        """Sets the new goal for the entity to move towards"""
+        self.goal
 
 
     
